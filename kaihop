@@ -85,7 +85,6 @@ spawn(function ()  --เปิด hop หา kai
                     end
                 end)
                 HP = game:GetService("Workspace").Kaigaku.Health.Value 
-                KaiHp = HP
                 wait(5)
                 Name  =game.Players.LocalPlayer.Name
                 local baseplate = Instance.new("Part")
@@ -138,6 +137,7 @@ spawn(function ()
                 end    
                 return nofall(self, ...)
             end)
+            print('ruok')
             break
         end
        end
