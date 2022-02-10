@@ -84,30 +84,34 @@ spawn(function ()  --เปิด hop หา kai
                         ].PlayerGui.LoadingScreen.Background.Loading.Skip.MouseButton1Click)
                     end
                 end)
-                HP = game:GetService("Workspace").Kaigaku.Health.Value 
-                wait(5)
-                Name  =game.Players.LocalPlayer.Name
-                local baseplate = Instance.new("Part")
-                baseplate.Parent = workspace
-                baseplate.Size = Vector3.new(10,2,10) -- change size
-                baseplate.Anchored = true
-                baseplate.Transparency =1
-                kaipos = getMob():GetModelCFrame()
-                baseplate.CFrame = kaipos + Vector3.new(0,200,0) -- higher number for it to spawn higher
-                wait(3)
-                game:GetService"Players".LocalPlayer.Character:WaitForChild"Humanoid"
-                  repeat wait() until not game.Players.LocalPlayer:FindFirstChild("LastSpawned") wait(1)
-                game:GetService("ReplicatedStorage").Remotes.Sync:InvokeServer("Player", "SpawnCharacter")
-                repeat wait() until game.Players.LocalPlayer:FindFirstChild("SecurityBypass") wait(1)
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = baseplate.CFrame + Vector3.new(0,10,0)
-                wait(5)
-                local vu = game:GetService("VirtualUser")
-                 game:GetService("Players").LocalPlayer.Idled:connect(function()
-                 vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-                 wait(1)
-                  vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-                end)
-                wait()
+                if(game:GetService("Players")[ game.Players.LocalPlayer.Name
+                ].PlayerGui:FindFirstChild("LoadingScreen")== nil) then --เจอkai
+                    local baseplate = Instance.new("Part")
+                    baseplate.Parent = workspace
+                    baseplate.Size = Vector3.new(10,2,10) -- change size
+                    baseplate.Anchored = true
+                    baseplate.Transparency =1
+                    kaipos = getMob():GetModelCFrame()
+                    baseplate.CFrame = kaipos + Vector3.new(0,distan,0) -- higher number for it to spawn higher
+                    if game:GetService("Workspace").Kaigaku.Health.Value <= 150 then
+                    timedelay= 8
+                    end
+                    wait(3)
+                    game:GetService"Players".LocalPlayer.Character:WaitForChild"Humanoid"
+                      repeat wait() until not game.Players.LocalPlayer:FindFirstChild("LastSpawned") wait(1)
+                    game:GetService("ReplicatedStorage").Remotes.Sync:InvokeServer("Player", "SpawnCharacter")
+                    repeat wait() until game.Players.LocalPlayer:FindFirstChild("SecurityBypass") wait(1)
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = baseplate.CFrame + Vector3.new(0,10,0)
+                    wait(3)
+                    local vu = game:GetService("VirtualUser")
+                     game:GetService("Players").LocalPlayer.Idled:connect(function()
+                     vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+                     wait(1)
+                      vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+                    end)
+                    wait(timedelay)
+                end
+                 end)
                 _G.nodamage = true
             end 
         end
