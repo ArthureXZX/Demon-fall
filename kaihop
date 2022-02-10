@@ -110,9 +110,8 @@ spawn(function ()  --เปิด hop หา kai
                       vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
                     end)
                     wait(timedelay)
+                    _G.nodamage = true
                 end
-                 end)
-                _G.nodamage = true
             end 
         end
     end
