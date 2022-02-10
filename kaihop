@@ -86,7 +86,8 @@ spawn(function ()  --เปิด hop หา kai
                         ].PlayerGui.LoadingScreen.Background.Loading.Skip.MouseButton1Click)
                     end
                 end)
-                if(game:GetService("Players")[ game.Players.LocalPlayer.Name
+                spawn(function ()
+                                    if(game:GetService("Players")[ game.Players.LocalPlayer.Name
                 ].PlayerGui:FindFirstChild("LoadingScreen")== nil) then --เจอkai
                     local baseplate = Instance.new("Part")
                     baseplate.Parent = workspace
@@ -113,40 +114,11 @@ spawn(function ()  --เปิด hop หา kai
                     end)
                     wait(timedelay)
                 end
+            end)
             end 
         end
     end
 end)
-spawn(function ()
-    while wait() do
-        if _G.nodamage then
-            local nofall 
-            nofall = hookmetamethod(game, "__namecall", function(self, ...)
-                local method = getnamecallmethod()
-                local args = {...}
-            
-                if method == "FireServer" and tostring(self) == "Async" and args[1] == "Character" and args[2] == "FallDamageServer"  then 
-                    return nil
-                end
-            
-                if method == "FireServer" and tostring(self) == "Async" and args[1] == "Character" and args[2] == "DemonWeakness"   then 
-                    return nil
-                end
-            
-                if method == "FireServer" and tostring(self) == "Async" and args[1] == "Character" and args[2] == "Crow"  then 
-                    return nil
-                end
-                if method == "Kick" and tostring(self) == Players.LocalPlayer then
-                    return 
-                end    
-                return nofall(self, ...)
-            end)
-            print('ruok')
-            break
-        end
-       end
-end)
-
 local queue_on_teleport =
 queue_on_teleport or
     syn and
