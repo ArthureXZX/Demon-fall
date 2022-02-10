@@ -1,29 +1,42 @@
 
-wait(5)
+wait(2)
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 local Player = game:GetService("Players").LocalPlayer
+local Name = "Realsetting.asdg"
+local DefaultSettings = {
+    isfind = false
+    }
+    local Settings
+if not pcall(function() readfile(Name) end) then writefile(Name, game:service'HttpService':JSONEncode(DefaultSettings)) end
+Settings = game:service'HttpService':JSONDecode(readfile(Name))
 
 local Window = Library.CreateLib("Serena Hub", "GrapeTheme")
 local universalTab = Window:NewTab("Universal")
 local universal = universalTab:NewSection("Kaigaku") -- section
 --variable
-_G.kaihop = false
+local function Save()
+    writefile(Name,game:service'HttpService':JSONEncode(Settings))
+    end
+
 _G.nodamage = false
 local KaiHp = 0
 loading = game:GetService("Players")[Player.Name].PlayerGui:FindFirstChild('LoadingScreen')
 
 
-universal:NewLabel("Kai HP:",KaiHp)
+universal:NewLabel("isfind:",Settings.isfind)
 universal:NewButton("Hop server","", function()
     Hopserver()
 end)
+
 local kaihop = universal:NewToggle("Kai function","",function (bool)
     if bool then
-        _G.kaihop = bool
+        Settings.isfind = bool
         print(_G.kaihop)
+        Save()
     else
         _G.kaihop = false
         print(_G.kaihop)
+        Save()
     end
 end)
 universal:NewToggle("Test","",true)
@@ -57,7 +70,7 @@ end
 
 spawn(function ()  --เปิด hop หา kai
     while wait() do
-        if _G.kaihop then 
+        if Settings.isfind then 
             if game:GetService("Workspace"):FindFirstChild("Kaigaku") == nil then --ไม่เจอ
                 Hopserver()
                 wait(7)
@@ -129,3 +142,13 @@ spawn(function ()
         end
        end
 end)
+
+local queue_on_teleport =
+queue_on_teleport or
+    syn and
+        syn.queue_on_teleport [[
+       repeat wait() until game:IsLoaded() wait(5) print("ServerHoped or rejoined")
+       loadstring(game:HttpGet('https://raw.githubusercontent.com/ArthureXZX/Demon-fall/main/kaihop'))()
+]]
+   
+
