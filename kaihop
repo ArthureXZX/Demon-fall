@@ -105,7 +105,7 @@ spawn(function ()  --เปิด hop หา kai
                     game:GetService("ReplicatedStorage").Remotes.Sync:InvokeServer("Player", "SpawnCharacter")
                     repeat wait() until game.Players.LocalPlayer:FindFirstChild("SecurityBypass") wait(1)
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = baseplate.CFrame + Vector3.new(0,15,0)
-                    wait(3)
+                    wait(5)
                     local vu = game:GetService("VirtualUser")
                      game:GetService("Players").LocalPlayer.Idled:connect(function()
                      vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
