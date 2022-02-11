@@ -8,10 +8,7 @@ local serv = win:Server("Future", "")
 
 local universal = serv:Channel("Universal")
 --variable
-_G.kaihop = false
-_G.kaitrack = false
-_G.skip = false
-_G.loadingscreen =true
+_G.kaihop = true
 loading = game:GetService("Players")[Player.Name].PlayerGui:FindFirstChild('LoadingScreen')
 
 
@@ -61,25 +58,6 @@ end
 --spawn function
 
 
-spawn(function ()
-    while wait() do
-        if _G.loadingscreen then --เจอ loading screen ให้ เปิด hop
-            if loading then
-                _G.kaihop = true
-                wait(5)
-            end
-        end 
-    end
-end)
-spawn(function ()
-    while wait() do
-        if _G.kaihop then
-                print('kaihop active..')
-                wait(2)
-                break
-        end
-    end
-end)
 
 spawn(function ()  --เปิด hop หา kai
     while wait() do
@@ -88,9 +66,30 @@ spawn(function ()  --เปิด hop หา kai
                 Hopserver()
                 wait(7)
             else
-                _G.kaitrack = true
                 wait()
-                _G.skip = true
+                wait(5)
+                skip()
+                Name  =game.Players.LocalPlayer.Name
+                local baseplate = Instance.new("Part")
+                baseplate.Parent = workspace
+                baseplate.Size = Vector3.new(10,2,10) -- change size
+                baseplate.Anchored = true
+                baseplate.Transparency =1
+                kaipos = getMob():GetModelCFrame()
+                baseplate.CFrame = kaipos + Vector3.new(0,200,0) -- higher number for it to spawn higher
+                wait(3)
+                game:GetService"Players".LocalPlayer.Character:WaitForChild"Humanoid"
+                  repeat wait() until not game.Players.LocalPlayer:FindFirstChild("LastSpawned") wait(1)
+                game:GetService("ReplicatedStorage").Remotes.Sync:InvokeServer("Player", "SpawnCharacter")
+                repeat wait() until game.Players.LocalPlayer:FindFirstChild("SecurityBypass") wait(1)
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = baseplate.CFrame + Vector3.new(0,10,0)
+                wait(5)
+                local vu = game:GetService("VirtualUser")
+                 game:GetService("Players").LocalPlayer.Idled:connect(function()
+                 vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+                 wait(1)
+                  vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+                end)
             end 
         end
     end
@@ -127,34 +126,6 @@ spawn(function ()
             break
         end
     end
-end)
-spawn(function ()
-    while wait() do
-        if _G.kaitrack then
-            wait(5)
-            Name  =game.Players.LocalPlayer.Name
-            local baseplate = Instance.new("Part")
-            baseplate.Parent = workspace
-            baseplate.Size = Vector3.new(10,2,10) -- change size
-            baseplate.Anchored = true
-            baseplate.Transparency =1
-            kaipos = getMob():GetModelCFrame()
-            baseplate.CFrame = kaipos + Vector3.new(0,200,0) -- higher number for it to spawn higher
-            wait(3)
-            game:GetService"Players".LocalPlayer.Character:WaitForChild"Humanoid"
-              repeat wait() until not game.Players.LocalPlayer:FindFirstChild("LastSpawned") wait(1)
-            game:GetService("ReplicatedStorage").Remotes.Sync:InvokeServer("Player", "SpawnCharacter")
-            repeat wait() until game.Players.LocalPlayer:FindFirstChild("SecurityBypass") wait(1)
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = baseplate.CFrame + Vector3.new(0,10,0)
-            wait(5)
-            local vu = game:GetService("VirtualUser")
-             game:GetService("Players").LocalPlayer.Idled:connect(function()
-             vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-             wait(1)
-              vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-            end)
-        end
-end
 end)
 local queue_on_teleport =
 queue_on_teleport or
